@@ -2,12 +2,16 @@
 #include "BTNode.h"
 #include <string>
 #include <iostream>
+#include "BSTree.h"
 
 int main()
 {
-	BTNode<int>* test = new BTNode<int>(0);
-	test->set_data(5);
-	std::cout << *test->get_data();
-	delete test;
+	BSTree<int> testTree;
+	testTree.add(5);
+	testTree.add(1);
+	testTree.add(8);
+	testTree.add(12);
+	testTree.add(52);
+	testTree.add(9);
 	return 0;
 }

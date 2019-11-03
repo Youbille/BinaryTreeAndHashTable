@@ -123,6 +123,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="BSTree.h" />
     <ClInclude Include="BTNode.h" />
   </ItemGroup>
   <ItemGroup>

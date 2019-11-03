@@ -36,9 +36,9 @@ public:
 	//{
 	//	return parent;
 	//}
-	value_type* get_data()
+	value_type get_data()
 	{
-		return data;
+		return *data;
 	}
 	//setters :
 	void set_right(BTNode* new_right)
