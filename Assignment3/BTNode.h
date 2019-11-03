@@ -13,6 +13,15 @@ public:
 		right = nullptr;
 		left = nullptr;
 	}
+	~BTNode()
+	{
+		if (data != nullptr)
+		{
+			delete(data);
+		}
+		right = nullptr;
+		left = nullptr;
+	}
 
 	//Getters :
 	BTNode* get_right()
@@ -42,7 +51,7 @@ public:
 	}
 	void set_data(value_type new_data)
 	{
-		data = new_data;
+		data = new value_type(new_data);
 	}
 private:
 	value_type* data;
