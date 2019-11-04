@@ -8,8 +8,10 @@ int main()
 {
 	BSTree<int> testTree;
 	testTree.add(5);
+	testTree.add(3);
+	testTree.add(4);
 	testTree.add(1);
-	testTree.remove(1);
+	testTree.remove(5);
 	//testTree.add(8);
 	//testTree.add(12);
 	//testTree.add(52);
