@@ -22,8 +22,8 @@ public:
 	{
 		if(node != nullptr)
 		{
-			destruction(node->get_right());
-			destruction(node->get_left());
+			/*if(node->get_right()!=nullptr )*/ destruction(node->get_right());
+			/*if(node->get_left()!= nullptr)*/ destruction(node->get_left());
 			delete(node);
 		}
 	}
@@ -66,6 +66,57 @@ public:
 			{
 				insertion(node_atm->get_left(), item);
 			}
+		}
+	}
+	void remove(value_type item)
+	{
+		erase(root, item);
+		size--;
+	}
+	void erase(BTNode<value_type>* node, value_type item)
+	{
+		if (node->get_data() == item)
+		{
+			destroy(node);
+		}
+		else if (item > node->get_data() && node->get_right()!=nullptr)
+		{
+			erase(node->get_right(), item);
+		}
+		else if (item < node->get_data() && node->get_left()!=nullptr)
+		{
+			erase(node->get_left(), item);
+		}
+	}
+
+	bool isALeafNode(BTNode<value_type>* node)
+	{
+		return node->get_right() == nullptr && node->get_left() == nullptr;
+	}
+
+	void destroy(BTNode<value_type>* node) //maybe return a value-type so we return the item from the destroyed node
+	{
+		if (isALeafNode(node))
+		{
+			delete(node); //problem : when I delete a node right there, its parent has a pointer that points to a random place
+		}
+		else if (node->get_right()==nullptr && node->get_left()!= nullptr)
+		{
+			node->set_data(node->get_left()->get_data());
+			if(node->get_left()->get_left() != nullptr)
+			{
+				node->set_left(node->get_left()->get_left()); //I'm not sure if this is the correct way to do it, but it should work. We go and get the grandchild to attach it to the current node
+			}
+			if(node->get_left()->get_right()!=nullptr)
+			{
+				node->set_right(node->get_left()->get_right());
+			}
+			delete node->get_left();
+		}
+		else if (node->get_left()!= nullptr && isALeafNode(node->get_left()))
+		{
+			node->set_data(node->get_left()->get_data());
+			delete node->get_left();
 		}
 	}
 private:
