@@ -106,13 +106,10 @@ public:
 
 	void destroy(BTNode<value_type>* node) //maybe return a value-type so we return the item from the destroyed node
 	{
-		//if (isALeafNode(node))
-		//{
-		//	delete(node); //problem : when I delete a node right there, its parent has a pointer that points to a random place
-		//}
+		BTNode<value_type>* temp;
 		 if (node->get_right() == nullptr && node->get_left() != nullptr)//If there is only a left child
 		{
-			 BTNode<value_type>* temp;
+			
 			if (isALeafNode(node->get_left()))
 			{
 				node->set_data(node->get_left()->get_data());
@@ -138,7 +135,31 @@ public:
 				delete temp;
 			}
 		}
-
+		 else if (node->get_right() != nullptr)
+		 {
+			 temp = findMin(node->get_right());
+			 node->set_data(temp->get_data()); //We put the minimum that we found into the node that we want to remove
+			 if (temp->get_right()!=nullptr)
+			 {
+				 temp->set_data(temp->get_right()->get_data());
+				 delete temp->get_right();
+				 temp->set_right(nullptr);
+			 }
+			 else
+			 {
+				 node->set_right(temp->get_right());
+				 delete temp;
+			 }
+		 }
+	}
+	BTNode<value_type>* findMin(BTNode<value_type>* node)
+	{
+		BTNode<value_type>* minimum = node;
+		while(minimum->get_left() != nullptr)
+		{
+			minimum = minimum->get_left();
+		}
+		return minimum;
 	}
 private:
 	int size;
