@@ -18,6 +18,10 @@ public:
 	{
 		destruction(root);
 	}
+	BTNode<value_type>* get_root()
+	{
+		return root;
+	}
 	void destruction(BTNode<value_type>* node)
 	{
 		if (node != nullptr)
@@ -25,6 +29,7 @@ public:
 			 destruction(node->get_right());
 		 destruction(node->get_left());
 			delete(node);
+			size--;
 		}
 	}
 	void add(value_type item)
@@ -161,8 +166,52 @@ public:
 		}
 		return minimum;
 	}
+	std::ostream& ToOstream(BTNode<value_type>* node, std::ostream& os)
+	{
+		if (node==nullptr)
+		{
+			return os;
+		}
+		ToOstream(node->get_left(), os);
+		os << node->get_data();
+		ToOstream(node->get_right(), os);
+	}
+	int calculateInventory ()
+	{
+		return computeInventory(root, 0);
+	}
+	int computeInventory(BTNode<value_type>* node, int inv)
+	{
+		if (node == nullptr)
+		{
+			return inv;
+		}
+		computeInventory(node->get_left(), inv);
+		inv += node->get_data().get_quantity(); //This will of course only work with MechParts 
+		computeInventory(node->get_right(), inv);
+	}
+	int calculateParts()
+	{
+		return computeTypesOfParts(root, 0);
+	}
+	int computeTypesOfParts(BTNode<value_type>* node, int typesOfParts)
+	{
+		if (node == nullptr)
+		{
+			return typesOfParts;
+		}
+		computeTypesOfParts(node->get_left(), typesOfParts);
+		typesOfParts++; //This will of course only be relevant with MechParts
+		computeTypesOfParts(node->get_right(), typesOfParts);
+	}
 private:
 	int size;
 	BTNode<value_type>* root;
 };
+template <typename value_type>
+std::ostream& operator <<(std::ostream& os ,BSTree<value_type> BStree)
+{
+	return BStree.ToOstream(BStree.get_root(),os);
+
+}
 #endif
