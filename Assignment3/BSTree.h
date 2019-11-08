@@ -9,6 +9,7 @@ template <typename value_type>
 class BSTree
 {
 public:
+	//Constructor and Destructor
 	BSTree()
 	{
 		root = nullptr;
@@ -22,7 +23,7 @@ public:
 	{
 		return root;
 	}
-	void destruction(BTNode<value_type>* node)
+	void destruction(BTNode<value_type>* node)//This is the function used to destroy properly the Tree, we use recursive callings to go from right to left
 	{
 		if (node != nullptr)
 		{
@@ -32,19 +33,20 @@ public:
 			size--;
 		}
 	}
+	//This adds an item at its proper place on the tree
 	void add(value_type item)
 	{
 		if (root == nullptr)
 		{
-			root = new BTNode<value_type>(new value_type(item));
+			root = new BTNode<value_type>(new value_type(item));//If the tree is empty, ths goes to the root
 		}
 		else
 		{
 			insertion(root, item);
 		}
-		size++;
+		size++;//We increment the size each time an item is added
 	}
-	void insertion(BTNode<value_type>* node_atm, value_type item)
+	void insertion(BTNode<value_type>* node_atm, value_type item)//This is used to "help" the add function, we use recursive calls again
 	{
 		if (item == node_atm->get_data())
 		{
@@ -81,9 +83,9 @@ public:
 		erase(root, item);
 		size--;
 	}
-	void erase(BTNode<value_type>* node, value_type item)
+	void erase(BTNode<value_type>* node, value_type item)//We use three functions to remove properly an item, as we have many different cases and tests
 	{
-		if (node->get_right()!= nullptr && node->get_right()->get_data() == item && isALeafNode(node->get_right())) //Here two tests if the next node if the wanted value
+		if (node->get_right()!= nullptr && node->get_right()->get_data() == item && isALeafNode(node->get_right())) //Here two tests if the next node is the wanted value
 		{
 			delete node->get_right();
 			node->set_right(nullptr);
@@ -107,12 +109,13 @@ public:
 		}
 	}
 
+	//This function is a simple test to check if a Node is a leaf or not
 	bool isALeafNode(BTNode<value_type>* node)
 	{
 		return node->get_right() == nullptr && node->get_left() == nullptr;
 	}
 
-	void destroy(BTNode<value_type>* node) //maybe return a value-type so we return the item from the destroyed node
+	void destroy(BTNode<value_type>* node) 
 	{
 		BTNode<value_type>* temp;
 		 if (node->get_right() == nullptr && node->get_left() != nullptr)//If there is only a left child
@@ -130,7 +133,7 @@ public:
 				temp = node->get_left();
 				if (node->get_left()->get_left() != nullptr)
 				{
-					node->set_left(temp->get_left()); //I'm not sure if this is the correct way to do it, but it should work. We go and get the grandchild to attach it to the current node
+					node->set_left(temp->get_left()); //I'm not sure if this is the correct way to do it, but it works. We go and get the grandchild to attach it to the current node
 				}
 				else
 				{
@@ -143,7 +146,7 @@ public:
 				delete temp;
 			}
 		}
-		 else if (node->get_right() != nullptr)
+		 else if (node->get_right() != nullptr) //If we have a right child, we have to find the succesor of the node we want to remove, that is the minimum on the right branch
 		 {
 			 temp = findMin(node->get_right());
 			 node->set_data(temp->get_data()); //We put the minimum that we found into the node that we want to remove
@@ -169,6 +172,8 @@ public:
 		}
 		return minimum;
 	}
+	//This function is used to overload the << operator
+	//We go  through the tree with an inorder traversal, using recursive calls
 	std::ostream& ToOstream(BTNode<value_type>* node, std::ostream& os)
 	{
 		if (node==nullptr)
@@ -179,6 +184,8 @@ public:
 		os << node->get_data();
 		ToOstream(node->get_right(), os);
 	}
+
+	//These functions calculate the total inventory and total different parts, using recursive calls again
 	int calculateInventory ()
 	{
 		return computeInventory(root, 0);

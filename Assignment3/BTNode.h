@@ -6,10 +6,10 @@ template <typename value_type>
 class BTNode
 {
 public:
+	//Constructor and Destructor
 	BTNode(value_type* value)
 	{
 		data = value;
-		//parent = nullptr; //I don't know yet if a pointer to the parent is useful
 		right = nullptr;
 		left = nullptr;
 	}
@@ -32,10 +32,7 @@ public:
 	{
 		return left;
 	}
-	//BTNode* get_parent()
-	//{
-	//	return parent;
-	//}
+
 	value_type get_data()
 	{
 		return *data;
@@ -55,7 +52,6 @@ public:
 	}
 private:
 	value_type* data;
-	//BTNode* parent;
 	BTNode* right;
 	BTNode* left;
 };

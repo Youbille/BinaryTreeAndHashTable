@@ -18,7 +18,7 @@ int main()
 	testTree.add(testPart);
 	testPart.set_code("code2");
 	testTable.add(testPart);
-	cout << testTable;
+	cout << testTable << "number of parts : " << testTable.calculateParts() << "inventory: " << testTable.calculateInventory();
 	testTable.remove(testPart);
 	cout << testTable;
 
