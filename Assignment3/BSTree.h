@@ -73,6 +73,9 @@ public:
 			}
 		}
 	}
+
+	//precon : take a type of item
+	//postcon : the item has been destroyed
 	void remove(value_type item)
 	{
 		erase(root, item);
@@ -209,7 +212,7 @@ private:
 	BTNode<value_type>* root;
 };
 template <typename value_type>
-std::ostream& operator <<(std::ostream& os ,BSTree<value_type> BStree)
+std::ostream& operator <<(std::ostream& os ,BSTree<value_type>& BStree)
 {
 	return BStree.ToOstream(BStree.get_root(),os);
 

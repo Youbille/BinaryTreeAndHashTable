@@ -125,6 +125,7 @@
   <ItemGroup>
     <ClInclude Include="BSTree.h" />
     <ClInclude Include="BTNode.h" />
+    <ClInclude Include="HTable.h" />
     <ClInclude Include="MechPart.h" />
   </ItemGroup>
   <ItemGroup>
